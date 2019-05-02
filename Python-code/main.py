@@ -52,6 +52,10 @@ def escalonador(mem: list):
         elif p.prioridade == 'L':
             fila2.append(p)
 
+    # organizar antes de executar
+
+
+    # execução dos processos
     while True:
         # executa primeiro a fila prioritária, depois a fila não prioritária
 
@@ -69,7 +73,7 @@ def escalonador(mem: list):
                 print()
                 freeProcess(mem, proc)
                 fila.remove(proc)
-        else:
+        elif len(fila2) > 0:
             for prc in fila2:
                 print("----------------------------------------", end="\n")
                 print("Processo [{}] - {}".format(prc.pid, prc.nome), end="\n")
@@ -83,17 +87,6 @@ def escalonador(mem: list):
                         print(d.nome, d.dependencia, p.nome, p.dependencia)
                         d.dependencia = 0
                         d.estado = READY
-                        '''while d.quantum >= 0:
-                            d.percentual += 1
-                            sleep(randint(1, 3))
-                            print("#" * d.percentual)
-                            d.quantum -= 1
-                        d.estado = FINISHED
-
-                        if d.estado == FINISHED:
-                            freeProcess(mem, d)
-                            fila2.remove(d)'''
-
                 prc.estado = READY
 
                 while prc.quantum >= 0:
@@ -108,6 +101,9 @@ def escalonador(mem: list):
                     print('Processo finalizado')
                     freeProcess(mem, prc)
                     fila2.remove(prc)
+        else:
+            break
+
 
 # system monitor
 # code 0 -> see all processes
