@@ -84,13 +84,12 @@ def escalonador(mem: list):
 
                 for d in fila2:
                     if d.dependencia == prc.pid:
-                        print(d.nome, d.dependencia, p.nome, p.dependencia)
                         d.dependencia = 0
                         d.estado = READY
                 prc.estado = READY
 
                 while prc.quantum >= 0:
-                    proc.percentual += 1
+                    prc.percentual += 1
                     sleep(randint(1, 3))
                     print("#" * prc.percentual)
                     prc.quantum -= 1
@@ -146,17 +145,17 @@ def monitor(mem: list, cod: int):
 
 mem = allocMemory()
 
-processo: Processo = Processo(1, "init", "H", 15, 'P', 0, 0)
-processo2: Processo = Processo(2, "todo", "L", 10, 'B', 3, 0)
-processo3: Processo = Processo(3, "nothing", "L", 5, 'B', 0, 0)
-processo4: Processo = Processo(4, "nothing but a G thang", "H", 12, 'P', 0, 0)
+processo: Processo = Processo(1, "init", "H", 2, 'P', 0, 0)
+processo2: Processo = Processo(2, "todo", "L", 2, 'B', 3, 0)
+processo3: Processo = Processo(3, "nothing", "L", 2, 'B', 5, 0)
+processo4: Processo = Processo(4, "thang", "H", 2, 'P', 0, 0)
+processo5: Processo = Processo(5, "teste", "L", 2, 'P', 0, 0)
 
 allocProcess(mem, processo)
 allocProcess(mem, processo2)
 allocProcess(mem, processo3)
 allocProcess(mem, processo4)
-
-#monitor(mem, 0)
+allocProcess(mem, processo5)
 
 escalonador(mem)
 
