@@ -52,8 +52,10 @@ def escalonador(mem: list):
         elif p.prioridade == 'L':
             fila2.append(p)
 
-    # execução dos processos
+    # organizar antes de executar
 
+
+    # execução dos processos
     while True:
         # executa primeiro a fila prioritária, depois a fila não prioritária
 
@@ -61,6 +63,16 @@ def escalonador(mem: list):
             for proc in fila:
                 print("----------------------------------------")
                 print("Processo [{}] - {}".format(proc.pid, proc.nome))
+
+                if proc.dependencia != 0: # com dependência
+                    #proc.estado = 'B'
+                    continue
+
+                for d in fila:
+                    if d.dependencia == proc.pid:
+                        d.dependencia = 0
+                        d.estado = READY
+                proc.estado = READY
 
                 while proc.quantum >= 0:
                     proc.percentual += 1
@@ -146,14 +158,17 @@ mem = allocMemory()
 processo: Processo = Processo(1, "init", "H", 2, 'P', 0, 0)
 processo2: Processo = Processo(2, "todo", "L", 2, 'B', 3, 0)
 processo3: Processo = Processo(3, "nothing", "L", 2, 'B', 5, 0)
-processo4: Processo = Processo(4, "thang", "H", 2, 'P', 0, 0)
+processo4: Processo = Processo(4, "thang", "H", 2, 'P', 6, 0)
 processo5: Processo = Processo(5, "teste", "L", 2, 'P', 0, 0)
+processo6: Processo = Processo(6, 'prior', 'H', 2, 'B', 1, 0)
+
 
 allocProcess(mem, processo)
 allocProcess(mem, processo2)
 allocProcess(mem, processo3)
 allocProcess(mem, processo4)
 allocProcess(mem, processo5)
+allocProcess(mem, processo6)
 
 escalonador(mem)
 
