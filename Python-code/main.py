@@ -52,10 +52,8 @@ def escalonador(mem: list):
         elif p.prioridade == 'L':
             fila2.append(p)
 
-    # organizar antes de executar
-
-
     # execução dos processos
+
     while True:
         # executa primeiro a fila prioritária, depois a fila não prioritária
 
