@@ -1,5 +1,7 @@
 from Processo import Processo
 from SysLib import SysLib
+from time import sleep
+import os
 
 def menu():
     print('---------------------------------')
@@ -7,19 +9,19 @@ def menu():
     print('1 - Cadastrar um processo')
     print('2 - Acessar monitor')
     print('3 - Escalonar processos')
+    print('---------------------------------')
+    print()
 
 
 syslib: SysLib = SysLib()
-
 mem = syslib.createMem()
-
-print(len(mem))
 
 while True:
     try:
+        menu()
         op: int = int(input('Digite um código: '))
-
         if op == 1:
+            os.system('cls' if os.name == 'nt' else 'clear')
             pid = len(mem) + 1
             nome: str = input('Digite o nome do processo: ')
             prioridade: str = input("Digite a prioridade (H ou L): ").upper()
@@ -27,17 +29,31 @@ while True:
             dependencia: int = int(input("Digite o pid do processo dependente (0 = sem dependência): "))
             processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia)
             syslib.storeProcess(mem, processo)
+            sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
             continue
         elif op == 2:
+            os.system('cls' if os.name == 'nt' else 'clear')
             syslib.showProcesses(mem)
+            sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
             continue
         elif op == 3:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            print("Iniciando o processo de escalonamento")
             syslib.scheduler(mem)
+            sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             syslib.deleteMem(mem)
+            sleep(2)
+            os.system('cls' if os.name == 'nt' else 'clear')
             break
-    except (ValueError, EOFError):
+    except (ValueError, EOFError, KeyboardInterrupt):
+        os.system('cls' if os.name == 'nt' else 'clear')
         syslib.deleteMem(mem)
+        print("Programa finalizado !!!")
         break
 
 '''
