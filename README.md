@@ -5,7 +5,7 @@ Tecnologias utilizadas:
  --------------
 Kernel:
 - Gerenciamento de memória;
-- Escalonador por prioridades;
+- Escalonador de processos por prioridades;
 - Monitor de recursos.
 -------------------
 Princípios utilizados: 
