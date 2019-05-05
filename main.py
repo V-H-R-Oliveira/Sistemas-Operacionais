@@ -1,34 +1,19 @@
 from Processo import Processo
 from SysLib import SysLib
 from time import sleep
-import os
-
-def menu():
-    print('---------------------------------')
-    print('0 - Sair do programa')
-    print('1 - Cadastrar um processo')
-    print('2 - Acessar monitor')
-    print('3 - Escalonar processos')
-    print('---------------------------------')
-    print()
-
-def menuMonitor():
-    print('---------------------------------')
-    print('1 - Exibir os processos na memória')
-    print('2 - Exibir os processos nas filas múltiplas')
-    print('---------------------------------')
-    print()
+from os import system, name
+from layout import menu, menuMonitor
 
 syslib: SysLib = SysLib()
-mem = syslib.createMem()
+mem: list = syslib.createMem()
 
 while True:
     try:
         menu()
         op: int = int(input('Digite um código: '))
         if op == 1:
-            os.system('cls' if os.name == 'nt' else 'clear')
-            pid = len(mem) + 1
+            system('cls' if name == 'nt' else 'clear')
+            pid: int = len(mem) + 1
             nome: str = input('Digite o nome do processo: ')
             prioridade: str = input("Digite a prioridade (H ou L): ").upper()
             quantum: int = int(input("Digite o quantum do processo: "))
@@ -36,31 +21,31 @@ while True:
             processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia)
             syslib.storeProcess(mem, processo)
             sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             continue
         elif op == 2:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             menuMonitor()
             code: int = int(input("Digite o código de acesso do monitor: "))
             syslib.showProcesses(mem, code)
             sleep(5)
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             continue
         elif op == 3:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             print("Iniciando o processo de escalonamento")
             syslib.scheduler(mem)
             sleep(2)
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
         else:
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             syslib.deleteMem(mem)
             sleep(2)
             print("Programa finalizado !!!")
-            os.system('cls' if os.name == 'nt' else 'clear')
+            system('cls' if name == 'nt' else 'clear')
             break
     except (ValueError, EOFError, KeyboardInterrupt):
-        os.system('cls' if os.name == 'nt' else 'clear')
+        system('cls' if name == 'nt' else 'clear')
         syslib.deleteMem(mem)
         print("Programa finalizado !!!")
         break
