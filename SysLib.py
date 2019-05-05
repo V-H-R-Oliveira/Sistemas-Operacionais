@@ -19,5 +19,5 @@ class SysLib(object):
     def scheduler(self, mem: list):
         return self.__kernel.escalonador(mem)
 
-    def showProcesses(self, mem: list):
-        return self.__kernel.monitor(mem)
+    def showProcesses(self, mem: list, code: int):
+        return self.__kernel.monitor(mem, code)
