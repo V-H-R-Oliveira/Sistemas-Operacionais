@@ -18,7 +18,14 @@ while True:
             prioridade: str = input("Digite a prioridade (H ou L): ").upper()
             quantum: int = int(input("Digite o quantum do processo: "))
             dependencia: int = int(input("Digite o pid do processo dependente (0 = sem dependência): "))
-            processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia)
+            if dependencia == 0:
+                processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia, 0)
+                syslib.storeProcess(mem, processo)
+                sleep(2)
+                system('cls' if name == 'nt' else 'clear')
+                continue
+            dado: int = int(input("Digite o dado de dependência (sem dado = 0): "))
+            processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia, dado)
             syslib.storeProcess(mem, processo)
             sleep(2)
             system('cls' if name == 'nt' else 'clear')
@@ -49,14 +56,15 @@ while True:
         syslib.deleteMem(mem)
         print("Programa finalizado !!!")
         break
+
 '''
 processo: Processo = Processo(1, "init", "H", 2, 0) 
-processo2: Processo = Processo(2, "todo", "L", 2, 3) 
-processo3: Processo = Processo(3, "nothing", "L", 2, 5) 
-processo4: Processo = Processo(4, "thang", "H", 2, 6) 
-processo5: Processo = Processo(5, "teste", "L", 2, 0) 
+processo2: Processo = Processo(2, "todo", "L", 2, 3)
+processo3: Processo = Processo(3, "nothing", "L", 5, 5, 8) # possui um dado do 8
+processo4: Processo = Processo(4, "thang", "H", 2, 6)
+processo5: Processo = Processo(5, "teste", "L", 2, 0)
 processo6: Processo = Processo(6, 'prior', 'H', 2, 7)
-processo7: Processo = Processo(7, 'deep', 'H', 2, 1)
+processo7: Processo = Processo(7, 'deep', 'H', 5, 1, 9) # possui um dado do 9
 processo8: Processo = Processo(8, 'highlow', 'H', 2, 3)
 processo9: Processo = Processo(9, 'lowhigh', 'L', 2, 4)
 
@@ -70,6 +78,8 @@ syslib.storeProcess(mem, processo7)
 syslib.storeProcess(mem, processo8)
 syslib.storeProcess(mem, processo9)
 
-syslib.scheduler(mem)
+#ordem de execução
+# 1 7 (block) 6 4 9 7
+# 5 3(block) 2 8 3
 
-'''
+syslib.scheduler(mem) '''
