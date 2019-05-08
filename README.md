@@ -1,4 +1,11 @@
 # Trabalho de SO
+
+Alunos:
+- Lucas Igawa, 120135
+- Paulo Lacerda, 120123
+- Yuri Luz, 120133
+- Vitor Oliveira, 120151
+
 Tecnologias utilizadas:
  - Pycharm Community;
  - Python 3.6.8.
