@@ -89,6 +89,11 @@ class Kernel(object):
                         if d.dependencia == proc.pid:
                             d.dependencia = 0
                             d.estado = self.READY
+
+                    if proc.estado == self.BLOCKED:
+                        proc.estado = self.READY
+                        print("Processo [{}] - {} - estado {}".format(proc.pid, proc.nome, proc.estado))
+
                     proc.estado = self.RUNNING
 
                     if proc.estado == self.RUNNING:
@@ -142,6 +147,10 @@ class Kernel(object):
                         if d.dependencia == prc.pid:
                             d.dependencia = 0
                             d.estado = self.READY
+
+                    if prc.estado == self.BLOCKED:
+                        prc.estado = self.READY
+                        print("Processo [{}] - {} - estado {}".format(prc.pid, prc.nome, prc.estado))
                     prc.estado = self.RUNNING
 
                     if prc.estado == self.RUNNING:
