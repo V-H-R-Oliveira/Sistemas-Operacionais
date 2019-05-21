@@ -7,7 +7,6 @@ from layout import menu, menuMonitor
 syslib: SysLib = SysLib()
 mem: list = syslib.createMem()
 
-
 processo: Processo = Processo(1, "init", "H", 2, 0)
 processo2: Processo = Processo(2, "todo", "L", 2, 3)
 processo3: Processo = Processo(3, "nothing", "L", 5, 5, 8) # possui um dado do 8
@@ -68,7 +67,7 @@ while True:
                 sleep(2)
                 system('cls' if name == 'nt' else 'clear')
                 continue
-            dado: int = int(input("Digite o dado de dependência (sem dado = 0): "))
+            dado: int = int(input("Digite o dado de dependência (processo inteiro = 0): "))
             processo: Processo = Processo(pid, nome, prioridade, quantum, dependencia, dado)
             syslib.storeProcess(mem, processo)
             sleep(2)

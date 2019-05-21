@@ -1,5 +1,6 @@
 from time import sleep
 from random import randint
+from tqdm import tqdm
 
 class Kernel(object):
     #flags
@@ -102,14 +103,16 @@ class Kernel(object):
                         if proc.dado != 0:
                             blockP: int = randint(1, proc.quantum) # irá executar até block
                             tempP: int = blockP # guarda para executar posteriormente
-                            while proc.quantum > blockP:
-                                proc.percentual += 1
+                            print()
+							#while proc.quantum > blockP:
+                            for i in tqdm(range(proc.quantum > blockP, -1)):
+                                proc.percentual += i
                                 sleep(randint(1, 3))
-                                print("+" * proc.percentual)
-                                proc.quantum -= 1
+                                #print("+" * proc.percentual)
+                                #proc.quantum -= 1
                             proc.estado = self.BLOCKED
                             print(
-                                "Processo [{}] - {} - estado {} - Precisa do {} do processo {} - percentual {}%".format(
+                                "Processo [{}] - {} - estado {} - Precisa do dado {} do processo {} - percentual {}%".format(
                                     proc.pid,
                                     proc.nome,
                                     proc.estado,
@@ -120,11 +123,13 @@ class Kernel(object):
                             proc.dado = 0
                             continue
                         if proc.dado == 0:
-                            while proc.quantum > 0:
-                                proc.percentual += 1
+                            print()
+                            #while proc.quantum > 0:
+                            for i in tqdm(range(proc.quantum, 0, - 1)):
+                                proc.percentual += i
                                 sleep(randint(1, 3))
-                                print("#" * proc.percentual)
-                                proc.quantum -= 1
+                                #print("#" * proc.percentual)
+                                #proc.quantum -= 1
                             proc.estado = self.FINISHED
                     print()
                     if proc.estado == self.FINISHED:
@@ -159,23 +164,27 @@ class Kernel(object):
                         if prc.dado != 0:
                             block: int = randint(1, prc.quantum) # irá executar até block
                             temp = block # guarda para executar posteriormente
-                            while prc.quantum > block:
-                                prc.percentual += 1
+                            print()
+							#while prc.quantum > block:
+                            for i in tqdm(range(prc.quantum, block, -1)):
+                                prc.percentual += i
                                 sleep(randint(1, 3))
-                                print("*" * prc.percentual)
-                                prc.quantum -= 1
+                                #print("*" * prc.percentual)
+                                #prc.quantum -= 1
                             prc.estado = self.BLOCKED
-                            print("Processo [{}] - {} - estado {} - Precisa do {} do processo {} - percentual {}%"
+                            print("Processo [{}] - {} - estado {} - Precisa do dado {} do processo {} - percentual {}%"
                                   .format(prc.pid, prc.nome, prc.estado, temp, prc.dado, prc.percentual))
                             prc.quantum = temp # atualiza o quantum
                             prc.dado = 0
                             continue
                         if prc.dado == 0:
-                            while prc.quantum > 0:
-                                prc.percentual += 1
+                            #while prc.quantum > 0:
+                            print()
+                            for i in tqdm(range(prc.quantum, 0, -1)):
+                                prc.percentual += i
                                 sleep(randint(1, 3))
-                                print("#" * prc.percentual)
-                                prc.quantum -= 1
+                                #print("#" * prc.percentual)
+                                #prc.quantum -= 1
                             prc.estado = self.FINISHED
                     print()
                     if prc.estado == self.FINISHED:
@@ -211,7 +220,7 @@ class Kernel(object):
             print('----------------------------------------')
             print('Apenas o PID dos processos')
             print("Fila prioritária:", [x.pid for x in fila])
-            print("Fila não prioritária: ", [x.pid for x in fila2])
+            print("Fila não prioritária:", [x.pid for x in fila2])
             print('----------------------------------------')
             print()
         else:
